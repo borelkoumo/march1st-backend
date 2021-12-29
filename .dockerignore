@@ -1,0 +1,21 @@
+.git
+node_modules
+Dockerfile*
+.DS_Store
+.gitignore
+README.md
+env.*
+.prettier*
+*.sh
+npm-debug.log
+docker-compose*
+.dockerignore
+README.md
+package-lock.json
+LICENSE
+.vscode
+
+
+# To prevent storing dev/temporary container data
+*.csv
+tmp
