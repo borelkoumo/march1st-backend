@@ -8,6 +8,10 @@ WORKDIR /usr/src/march1st-backend
 # Copy files
 COPY --chown=node:node ./build ./
 
+# install production dependencies
+# RUN cd build && npm ci --production
+RUN npm ci --production
+
 # install dependencies
 # USER root
 # RUN npm i
@@ -21,10 +25,6 @@ RUN node ace migration:run -y
 
 # Copy .env file to production
 RUN cp .env.production .env.production
-
-# install production dependencies
-# RUN cd build && npm ci --production
-RUN npm ci --production
 
 # Let all incoming connections use the port below
 EXPOSE 8080
