@@ -1,11 +1,5 @@
 FROM node:16.13
 
-# Create working directory
-WORKDIR /usr/src/march1st-backend
-
-# Copy files
-COPY --chown=node:node . ./
-
 # install dependencies
 USER root
 RUN npm i
@@ -23,14 +17,20 @@ RUN cp .env build/.env.production
 # install production dependencies
 RUN cd build && npm ci --production
 
+# Create working directory
+WORKDIR /usr/src/march1st-backend
+
+# Copy files
+COPY --chown=node:node ./build ./
+
 # Let all incoming connections use the port below
 EXPOSE 8080
 
+RUN pwd
 RUN ls -nalp
-RUN cd build && ls -nalp
 
 # Start production server
-CMD pwd && ls -al && cd build && ls -al && node server.js
+CMD pwd && ls -al cat env.js && cat env.production && node server.js
 
 # CMD pm2 start node --name "March 1st Backend" -- ace serve --watch
 # CMD ["/bin/bash","pm2 start node --name 'March 1st Backend' -- ace serve --watch"] 
