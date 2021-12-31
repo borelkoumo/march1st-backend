@@ -6,16 +6,16 @@ WORKDIR /usr/src/march1st-backend
 # Copy files
 COPY --chown=node:node . ./
 
-# install dependencies
-USER root
-RUN npm install
-
 # Run migrations to create sqlite database schema
 RUN mkdir tmp
 RUN node ace migration:run
 
 # Build production server
-RUN node ace build --production && cd build
+RUN node ace build --production --ignore-ts-errors && cd build
+
+# install dependencies
+USER root
+RUN npm ci --production
 
 # Let all incoming connections use the port below
 EXPOSE 8080
