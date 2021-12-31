@@ -7,10 +7,12 @@ WORKDIR /usr/src/march1st-backend
 
 # Copy dependencies files
 COPY ["package.json", "package-lock.json*", "./"]
-COPY [".env.production", "./"]
+COPY [".env.production", "./.env"]
 
 # install production dependencies
-RUN pwd && ls -al && npm ci --production
+RUN pwd
+RUN ls -al
+RUN npm ci --production
 
 # Copy application files
 COPY --chown=node:node ./build ./
@@ -20,7 +22,7 @@ COPY --chown=node:node ./build ./
 # RUN npm i
 
 # Run migrations to create sqlite database schema
-RUN ls -al && mkdir tmp
+RUN mkdir tmp
 RUN node ace migration:run -y
 
 # Build production server
