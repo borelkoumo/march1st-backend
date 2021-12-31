@@ -8,7 +8,7 @@ COPY --chown=node:node . ./
 
 # install dependencies
 USER root
-RUN npm ci --production
+RUN npm i
 
 # Run migrations to create sqlite database schema
 RUN mkdir tmp
