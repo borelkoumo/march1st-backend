@@ -30,7 +30,7 @@ RUN ls -nalp
 RUN cd build && ls -nalp
 
 # Start production server
-CMD node server.js
+CMD cd build && node server.js
 
 # CMD pm2 start node --name "March 1st Backend" -- ace serve --watch
 # CMD ["/bin/bash","pm2 start node --name 'March 1st Backend' -- ace serve --watch"] 
