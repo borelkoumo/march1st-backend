@@ -18,6 +18,6 @@ node ace make:controller Attestation
 npm i @adonisjs/session
 
 
-# Install SQLIte
+# Install SQLIte 
 node ace configure @adonisjs/lucid
 node ace migration:run

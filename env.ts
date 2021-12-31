@@ -27,8 +27,5 @@ export default Env.rules({
 	RP_ORIGIN_MOBILE: Env.schema.string(),
 	FIDO2_SERVER_URL: Env.schema.string(),
 	FIDO2_COOKIE_NAME: Env.schema.string(),
-	FIDO2_GET_AUTH_CHALLENGE: Env.schema.string(),
-	FIDO2_POST_AUTH_RESPONSE: Env.schema.string(),
-	FIDO2_DELETE_CREDENTIALS: Env.schema.string(),
 	DB_CONNECTION: Env.schema.string(),
 })

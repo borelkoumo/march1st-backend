@@ -2,16 +2,16 @@
 cd /home/ec2-user
 ######################### Install HTTPD #########################
 # Just to prevent errors, if somebody changed current working directory
-cd /home/ec2-user
+# cd /home/ec2-user
 
-sudo yum update -y
-sudo yum install httpd -y 
-sudo systemctl start httpd
-sudo systemctl enable httpd
+# sudo yum update -y
+# sudo yum install httpd -y 
+# sudo systemctl start httpd
+# sudo systemctl enable httpd
 
 # Create index file
-EC2AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
-echo "<h1>Instance disponible dans l'AZ $EC2AZ</h1>" > /var/www/html/index.html
+# EC2AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+# echo "<h1>Instance disponible dans l'AZ $EC2AZ</h1>" > /var/www/html/index.html
 
 ######################### Install EC2 METADATA #########################
 # Just to prevent errors, if somebody changed current working directory

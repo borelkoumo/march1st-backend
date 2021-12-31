@@ -3,18 +3,25 @@ FROM node:16.13
 # Create working directory
 WORKDIR /usr/src/march1st-backend
 
+# Copy files
 COPY --chown=node:node . ./
 
+# install dependencies
 USER root
-
 RUN npm install
 
-#RUN npm i -g pm2
+# Run migrations to create sqlite database schema
+RUN mkdir tmp
+RUN node ace migration:run
+
+# Build production server
+RUN node ace build --production && cd build
 
 # Let all incoming connections use the port below
 EXPOSE 8080
 
-CMD node ace serve --watch
+# Start production server
+CMD node server.js
 
 # CMD pm2 start node --name "March 1st Backend" -- ace serve --watch
 # CMD ["/bin/bash","pm2 start node --name 'March 1st Backend' -- ace serve --watch"] 

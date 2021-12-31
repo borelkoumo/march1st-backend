@@ -4,8 +4,7 @@ Dockerfile*
 .DS_Store
 .gitignore
 README.md
-env.*
-.prettier*
+#env.*
 *.sh
 npm-debug.log
 docker-compose*
@@ -15,6 +14,8 @@ package-lock.json
 LICENSE
 .vscode
 
+.prettier*
+.eslint*
 
 # To prevent storing dev/temporary container data
 *.csv
