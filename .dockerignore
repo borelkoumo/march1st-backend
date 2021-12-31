@@ -10,7 +10,7 @@ npm-debug.log
 docker-compose*
 .dockerignore
 README.md
-package-lock.json
+# package-lock.json
 LICENSE
 .vscode
 
