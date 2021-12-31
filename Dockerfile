@@ -17,6 +17,9 @@ RUN node ace migration:run
 # Build production server
 RUN node ace build --production --ignore-ts-errors
 
+# Copy .env file to production
+RUN cp .env build/.env.production
+
 # install production dependencies
 RUN cd build && npm ci --production
 
