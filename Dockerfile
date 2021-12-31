@@ -10,7 +10,7 @@ COPY ["package.json", "package-lock.json*", "./"]
 COPY [".env.production", "./"]
 
 # install production dependencies
-RUN npm ci --production
+RUN pwd && ls -al && npm ci --production
 
 # Copy application files
 COPY --chown=node:node ./build ./
