@@ -23,8 +23,11 @@ RUN cd build && npm ci --production
 # Let all incoming connections use the port below
 EXPOSE 8080
 
+RUN ls -nalp
+RUN cd build && ls -nalp
+
 # Start production server
-CMD cd build && node server.js
+CMD node server.js
 
 # CMD pm2 start node --name "March 1st Backend" -- ace serve --watch
 # CMD ["/bin/bash","pm2 start node --name 'March 1st Backend' -- ace serve --watch"] 
