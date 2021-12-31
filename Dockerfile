@@ -2,7 +2,7 @@ FROM node:16.13
 
 # install dependencies
 USER root
-RUN npm i
+RUN pwd && ls -al && npm i
 
 # Run migrations to create sqlite database schema
 RUN mkdir tmp
