@@ -20,7 +20,7 @@ COPY --chown=node:node ./build ./
 # RUN npm i
 
 # Run migrations to create sqlite database schema
-RUN mkdir tmp
+RUN ls -al && mkdir tmp
 RUN node ace migration:run -y
 
 # Build production server
