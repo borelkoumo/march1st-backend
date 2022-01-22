@@ -46,7 +46,7 @@ const corsConfig: CorsConfig = {
   */
 	origin: [
 		"http://localhost:8080", // Origin for developement purpose
-		"https://frontend.march1st-beta.com", // Origin for production
+		"https://march1st.com", // Origin for production
 	],
 
 	/*
