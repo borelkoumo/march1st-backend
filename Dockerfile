@@ -24,6 +24,8 @@ COPY --chown=node:node ./build ./
 # Run migrations to create sqlite database schema
 RUN mkdir tmp
 RUN node ace migration:run
+RUN chown -R node:node tmp
+RUN chmod -R ugo+rwx tmp
 
 # Build production server
 # RUN node ace build --production --ignore-ts-errors
