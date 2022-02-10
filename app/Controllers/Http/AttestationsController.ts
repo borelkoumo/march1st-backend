@@ -20,14 +20,14 @@ export default class AttestationsController {
 		if (MyHelper.isEmptyOrNull(username)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Username is missing",
 			})
 		}
 		if (MyHelper.isEmptyOrNull(displayName)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Display Name is missing",
 			})
 		}
@@ -41,7 +41,7 @@ export default class AttestationsController {
 			if (userExists) {
 				return ctx.response.send({
 					status: "KO",
-					code:400,
+					code: 400,
 					message: "Username already exists in RP backend database",
 				})
 			}
@@ -51,14 +51,14 @@ export default class AttestationsController {
 
 			// Retreive session as cookie and send it to response
 			Logger.info("Session ID : %s", result.sessionId)
-			ctx.response.cookie(Env.get("FIDO2_COOKIE_NAME"), result.sessionId)
-
+			
 			// Save username and userId in local database
 			const user = await this.databaseHelper.saveUserId(username, result.user.id, typeUser)
 			Logger.info(`Saved #id = ${user.id}`)
-
+			
 			// Send response
 			ctx.response.status(200)
+			ctx.response.cookie(Env.get("FIDO2_COOKIE_NAME"), result.sessionId)
 			return ctx.response.send({
 				status: "OK",
 				code: 200,
@@ -97,14 +97,14 @@ export default class AttestationsController {
 		if (MyHelper.isEmptyOrNull(sessionId)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "sessionId is missing",
 			})
 		}
 		if (MyHelper.isEmptyOrNull(rawId, id, response, type)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Client attestation data are missing",
 			})
 		}
@@ -114,15 +114,14 @@ export default class AttestationsController {
 		) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Request origin must be equal to 'front' or 'mobile'",
 			})
 		}
-		
+
 		if (MyHelper.isEmptyOrNull(typeUser) || !["client", "hacker"].includes(typeUser)) {
 			typeUser = "client"
 		}
-		
 
 		// Perform request
 		try {

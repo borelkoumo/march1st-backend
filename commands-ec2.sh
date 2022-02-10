@@ -11,4 +11,4 @@ docker run -itd -p8080:8080 march1st-backend
 
 # Get logs
 docker ps -a
-docker logs --follow <container_id>
+docker logs --follow --tail 100 <container_id> 

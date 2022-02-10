@@ -15,7 +15,7 @@ export default class DatabaseHelper {
 			Logger.info(`username='${user.username}' userId='${user.userId}' inserted !. #ID=${user.id}`)
 			return user
 		} catch (error) {
-			Logger.error(`Error in saveUserId`, error.message)
+			Logger.error(`Error in saveUserId : ${error.message}`)
 			throw new Error(error.message)
 		}
 	}
@@ -26,7 +26,7 @@ export default class DatabaseHelper {
 			Logger.info(`User with username '${username}' = ${user.userId}`)
 			return user.userId
 		} catch (error) {
-			Logger.error(`Error in getUserId`, error.message)
+			Logger.error(`Error in getUserId : ${error.message}`)
 			throw new Error(error.message)
 		}
 	}
@@ -38,12 +38,15 @@ export default class DatabaseHelper {
 				.where("username", "=", username)
 				.andWhere("typeUser", "=", typeUser)
 				.first()
-			// const user = await User.findByOrFail("username", username)
-			Logger.info(`userExists. username='${user.username}'; userId='${user.userId}'`)
-			return true
+			if (user) {
+				Logger.info(`User already exists. username='${user.username}'; userId='${user.userId}'`)
+				return true
+			} else {
+				return false
+			}
 		} catch (error) {
-			Logger.error(`Error in userExists`, error.message)
-			return false
+			Logger.error(`Error in userExists : ${error.message}`)
+			throw new Error(error.message)
 		}
 	}
 }
