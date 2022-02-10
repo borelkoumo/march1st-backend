@@ -19,7 +19,7 @@ export default class AssertionsController {
 		if (MyHelper.isEmptyOrNull(username)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Required field 'username' is missing",
 			})
 		}
@@ -71,14 +71,14 @@ export default class AssertionsController {
 		if (MyHelper.isEmptyOrNull(sessionId)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "sessionId is missing",
 			})
 		}
 		if (MyHelper.isEmptyOrNull(id, type, clientDataJSON, authenticatorData, signature)) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "A required field in assertion is missing",
 			})
 		}
@@ -90,7 +90,7 @@ export default class AssertionsController {
 		) {
 			return ctx.response.send({
 				status: "KO",
-				code:400,
+				code: 400,
 				message: "Request origin must be equal to 'front' or 'mobile'",
 			})
 		}

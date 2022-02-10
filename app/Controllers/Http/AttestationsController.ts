@@ -78,6 +78,9 @@ export default class AttestationsController {
 		// Get session params
 		const { sessionId } = ctx.request.body()
 
+		// Get typeUser
+		let { typeUser } = ctx.request.body()
+
 		// Get cookie
 		const fido2Cookie = ctx.request.cookie(Env.get("FIDO2_COOKIE_NAME"), null)
 		Logger.info("fido2Cookie : %s", fido2Cookie)
@@ -115,6 +118,11 @@ export default class AttestationsController {
 				message: "Request origin must be equal to 'front' or 'mobile'",
 			})
 		}
+		
+		if (MyHelper.isEmptyOrNull(typeUser) || !["client", "hacker"].includes(typeUser)) {
+			typeUser = "client"
+		}
+		
 
 		// Perform request
 		try {
