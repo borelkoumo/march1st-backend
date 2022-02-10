@@ -17,4 +17,7 @@ export default class User extends BaseModel {
 
 	@column()
 	public userId: string
+
+	@column()
+	public typeUser: string
 }

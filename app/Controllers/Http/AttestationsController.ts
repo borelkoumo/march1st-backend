@@ -13,28 +13,35 @@ export default class AttestationsController {
 	public async options(ctx: HttpContextContract) {
 		// Get params
 		const { username, displayName } = ctx.request.body()
+		let { typeUser } = ctx.request.body()
 
 		// Verify params
 		ctx.response.status(400)
 		if (MyHelper.isEmptyOrNull(username)) {
 			return ctx.response.send({
 				status: "KO",
+				code:400,
 				message: "Username is missing",
 			})
 		}
 		if (MyHelper.isEmptyOrNull(displayName)) {
 			return ctx.response.send({
 				status: "KO",
+				code:400,
 				message: "Display Name is missing",
 			})
+		}
+		if (MyHelper.isEmptyOrNull(typeUser) || !["client", "hacker"].includes(typeUser)) {
+			typeUser = "client"
 		}
 
 		try {
 			// Does his username already exist in our local database?
-			const userExists = await this.databaseHelper.userExists(username)
+			const userExists = await this.databaseHelper.userExists(username, typeUser)
 			if (userExists) {
 				return ctx.response.send({
 					status: "KO",
+					code:400,
 					message: "Username already exists in RP backend database",
 				})
 			}
@@ -47,7 +54,7 @@ export default class AttestationsController {
 			ctx.response.cookie(Env.get("FIDO2_COOKIE_NAME"), result.sessionId)
 
 			// Save username and userId in local database
-			const user = await this.databaseHelper.saveUserId(username, result.user.id)
+			const user = await this.databaseHelper.saveUserId(username, result.user.id, typeUser)
 			Logger.info(`Saved #id = ${user.id}`)
 
 			// Send response
@@ -61,7 +68,8 @@ export default class AttestationsController {
 			ctx.response.status(error.code)
 			return ctx.response.send({
 				status: "KO",
-				...error,
+				code: error.code,
+				message: error.message,
 			})
 		}
 	}
@@ -86,12 +94,14 @@ export default class AttestationsController {
 		if (MyHelper.isEmptyOrNull(sessionId)) {
 			return ctx.response.send({
 				status: "KO",
+				code:400,
 				message: "sessionId is missing",
 			})
 		}
 		if (MyHelper.isEmptyOrNull(rawId, id, response, type)) {
 			return ctx.response.send({
 				status: "KO",
+				code:400,
 				message: "Client attestation data are missing",
 			})
 		}
@@ -101,6 +111,7 @@ export default class AttestationsController {
 		) {
 			return ctx.response.send({
 				status: "KO",
+				code:400,
 				message: "Request origin must be equal to 'front' or 'mobile'",
 			})
 		}
@@ -127,7 +138,8 @@ export default class AttestationsController {
 			ctx.response.status(error.code)
 			return ctx.response.send({
 				status: "KO",
-				...error,
+				code: error.code,
+				message: error.message,
 			})
 		}
 	}

@@ -26,7 +26,7 @@ node ace migration:run
 npm i mysql
 
 #TO run mysql in docker
-docker run --name march1st-mysql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=mysql2022 mysql
+docker run --name march1st-mysql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=mysql2022 mysql:5.7.37
 docker exec -it march1st-mysql bash
 mysql -u root -p
 show databases;
@@ -34,3 +34,10 @@ CREATE DATABASE rpbackend
 show databases;
 CREATE USER 'rpbackenduser'@'localhost' IDENTIFIED BY 'mysql2022'
 GRANT ALL PRIVILEGES ON rpbackend.* TO 'rpbackenduser'@'localhost'
+
+CREATE TABLE users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(256) NOT NULL,
+    userId VARCHAR(256) NOT NULL,
+    typeUser VARCHAR(256) NOT NULL
+);
