@@ -12,7 +12,7 @@ COPY [".env.production", "./.env"]
 # install production dependencies
 RUN pwd
 RUN ls -al
-RUN npm i --production
+RUN npm ci --production
 
 # Copy application files
 COPY --chown=node:node ./build ./

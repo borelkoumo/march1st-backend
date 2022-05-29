@@ -55,7 +55,6 @@ export default class AttestationsController {
 			// Save username and userId in local database
 			const user = await this.databaseHelper.saveUserId(username, result.user.id, typeUser)
 			Logger.info(`Saved #id = ${user.id}`)
-
 			// Send response
 			ctx.response.status(200)
 			ctx.response.cookie(Env.get("FIDO2_COOKIE_NAME"), result.sessionId)

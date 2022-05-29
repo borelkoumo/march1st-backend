@@ -31,7 +31,7 @@ export default class DatabaseHelper {
 		}
 	}
 
-	public async userExists(username: string, typeUser: string): Promise<boolean> {
+	public async userExists(username: string, typeUser: string) {
 		try {
 			const user = await Database.from(User.table) // 👈 gives an instance of select query builder
 				.select("*")
@@ -45,8 +45,8 @@ export default class DatabaseHelper {
 				return false
 			}
 		} catch (error) {
-			Logger.error(`Error in userExists : ${error.message}`)
-			throw new Error(error.message)
+			Logger.error(`Error in userExists`, error)
+			Logger.error(`User.table = ${User.table}`)
 		}
 	}
 }
