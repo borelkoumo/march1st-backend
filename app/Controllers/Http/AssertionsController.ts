@@ -37,8 +37,8 @@ export default class AssertionsController {
 				data: result,
 			})
 		} catch (error) {
-			Logger.error("Error", error)
-			ctx.response.status(error.code)
+			Logger.error("Error in assertion/options", error)
+			ctx.response.status(error.status)
 			return ctx.response.send({
 				status: "KO",
 				code: error.code,
@@ -117,7 +117,8 @@ export default class AssertionsController {
 				data: result,
 			})
 		} catch (error) {
-			ctx.response.status(error.code)
+			Logger.error("Error in assertion/result", error)
+			ctx.response.status(error.status)
 			return ctx.response.send({
 				status: "KO",
 				code: error.code,

@@ -51,11 +51,11 @@ export default class AttestationsController {
 
 			// Retreive session as cookie and send it to response
 			Logger.info("Session ID : %s", result.sessionId)
-			
+
 			// Save username and userId in local database
 			const user = await this.databaseHelper.saveUserId(username, result.user.id, typeUser)
 			Logger.info(`Saved #id = ${user.id}`)
-			
+
 			// Send response
 			ctx.response.status(200)
 			ctx.response.cookie(Env.get("FIDO2_COOKIE_NAME"), result.sessionId)
@@ -65,7 +65,8 @@ export default class AttestationsController {
 				data: result,
 			})
 		} catch (error) {
-			ctx.response.status(error.code)
+			Logger.error("Error in attestation/options", error)
+			ctx.response.status(error.status)
 			return ctx.response.send({
 				status: "KO",
 				code: error.code,
@@ -142,7 +143,8 @@ export default class AttestationsController {
 				data: result,
 			})
 		} catch (error) {
-			ctx.response.status(error.code)
+			Logger.error("Error in attestation/result", error)
+			ctx.response.status(error.status)
 			return ctx.response.send({
 				status: "KO",
 				code: error.code,

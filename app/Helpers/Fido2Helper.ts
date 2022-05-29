@@ -13,7 +13,7 @@ export default class Fido2Server {
 	private AUTH_CHALLENGE = "/auth/challenge"
 	private AUTH_RESPONSE = "/auth/response"
 
-	public getRegistrationChallenge(username: string, displayName: string) {
+	public async getRegistrationChallenge(username: string, displayName: string) {
 		Logger.info("--------------> getRegistrationChallenge for /attestation/options <--------------")
 
 		/**
@@ -54,28 +54,28 @@ export default class Fido2Server {
 		Logger.info("\tDATA to send : %o", data)
 
 		// Make request
-		return axios({
-			method: "post",
-			url: url,
-			data: data,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				Logger.info("\tRESOLVED : %o", response.data)
-				return Promise.resolve(response.data)
+		try {
+			const response = await axios({
+				method: "post",
+				url: url,
+				data: data,
+				headers: {
+					"Content-Type": "application/json",
+				},
 			})
-			.catch(function (error) {
-				Logger.error("\tREJECTED : %o", error)
-				return Promise.reject({
-					code: error.response.status,
-					message: error.message,
-				})
-			})
+			Logger.info("\tRESOLVED : %o", response.data)
+			return response.data
+		} catch (error) {
+			Logger.error("\tREJECTED : %o", error)
+			// return error
+			// return {
+			// 	status: error.response.status,
+			// 	message: error.message,
+			// }
+		}
 	}
 
-	public sendRegistrationResponse(
+	public async sendRegistrationResponse(
 		requestOrigin: string,
 		sessionId: string,
 		id: string,
@@ -105,25 +105,24 @@ export default class Fido2Server {
 		Logger.info("\tDATA to send : %o", data)
 
 		// Make request
-		return axios({
-			method: "post",
-			url: url,
-			data: data,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				Logger.info("\tRESOLVED : %o", response.data)
-				return Promise.resolve(response.data)
+		try {
+			const response_1 = await axios({
+				method: "post",
+				url: url,
+				data: data,
+				headers: {
+					"Content-Type": "application/json",
+				},
 			})
-			.catch((error) => {
-				Logger.error("\tREJECTED : %o", error)
-				return Promise.reject({
-					code: error.response.status,
-					message: error.message,
-				})
-			})
+			Logger.info("\tRESOLVED : %o", response_1.data)
+			return response_1.data
+		} catch (error) {
+			Logger.error("\tREJECTED : %o", error)
+			// return {
+			// 	status: error.response.status,
+			// 	message: error.message,
+			// }
+		}
 	}
 
 	public getAuthenticationChallenge(userId: string) {
@@ -154,14 +153,14 @@ export default class Fido2Server {
 		})
 			.then((response) => {
 				Logger.info("\tRESOLVED : %o", response.data)
-				return Promise.resolve(response.data)
+				return response.data
 			})
 			.catch((error) => {
 				Logger.error("\tREJECTED : %o", error)
-				return Promise.reject({
-					code: error.response.status,
+				return {
+					status: error.response.status,
 					message: error.message,
-				})
+				}
 			})
 	}
 
@@ -225,14 +224,14 @@ export default class Fido2Server {
 		})
 			.then(function (response) {
 				Logger.info("\tRESOLVED : %o", response.data)
-				return Promise.resolve(response.data)
+				return response.data
 			})
 			.catch(function (error) {
 				Logger.error("\tREJECTED : %o", error)
-				return Promise.reject({
-					code: error.response.status,
+				return {
+					status: error.response.status,
 					message: error.message,
-				})
+				}
 			})
 	}
 }
