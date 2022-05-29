@@ -7,13 +7,12 @@ WORKDIR /usr/src/march1st-backend
 
 # Copy dependencies files
 COPY ["package.json", "./"]
-COPY ["package-lock.json", "./"]
 COPY [".env.production", "./.env"]
 
 # install production dependencies
 RUN pwd
 RUN ls -al
-RUN npm ci --production
+RUN npm i --production
 
 # Copy application files
 COPY --chown=node:node ./build ./
