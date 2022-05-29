@@ -33,20 +33,23 @@ export default class DatabaseHelper {
 
 	public async userExists(username: string, typeUser: string) {
 		try {
+			Logger.error(`User.table = ${User.table}`)
 			const user = await Database.from(User.table) // 👈 gives an instance of select query builder
 				.select("*")
 				.where("username", "=", username)
 				.andWhere("typeUser", "=", typeUser)
-				.first()
-			if (user) {
+				.firstOrFail()
+			console.log("User from DB = ", user)
+			if (!user) {
+				return false
+			} else {
 				Logger.info(`User already exists. username='${user.username}'; userId='${user.userId}'`)
 				return true
-			} else {
-				return false
 			}
 		} catch (error) {
 			Logger.error(`Error in userExists`, error)
-			Logger.error(`User.table = ${User.table}`)
+			console.log("Error in userExists = ", error)
+			return true
 		}
 	}
 }
