@@ -38,7 +38,7 @@ export default class DatabaseHelper {
 				.select("*")
 				.where("username", "=", username)
 				.andWhere("typeUser", "=", typeUser)
-				.firstOrFail()
+				.first()
 			console.log("User from DB = ", user)
 			if (!user) {
 				return false
