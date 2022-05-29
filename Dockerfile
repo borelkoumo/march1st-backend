@@ -7,6 +7,7 @@ WORKDIR /usr/src/march1st-backend
 
 # Copy dependencies files
 COPY ["package.json", "./"]
+COPY ["package-lock.json", "./"]
 COPY [".env.production", "./.env"]
 
 # install production dependencies
