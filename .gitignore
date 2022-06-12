@@ -3,6 +3,9 @@ build
 coverage
 .vscode
 .DS_STORE
-.env
+.env*
 tmp
 package-lock.json
+.dockerignore
+Dockerfile
+commands-*
