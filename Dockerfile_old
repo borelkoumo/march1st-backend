@@ -1,0 +1,40 @@
+FROM node:16.15
+
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+
+# Create working directory
+WORKDIR /app/march1st-backend
+# Copy dependencies files
+# COPY ["package.json", "./"]
+# # install production dependencies
+# RUN npm i
+
+# RUN echo NODE_ENV=${NODE_ENV}
+# RUN echo HOST=${HOST}
+# RUN echo PORT=$PORT
+
+# Copy application files
+# COPY --chown=node:node . .
+# install dependencies
+# USER root
+# RUN npm i
+# Run migrations to create sqlite database schema
+# RUN mkdir tmp
+# RUN node ace migration:run
+# RUN chown -R node:node tmp
+# RUN chmod -R ugo+rwx tmp
+# Build production server
+# RUN node ace build --production --ignore-ts-errors
+# Let all incoming connections use the port below
+# EXPOSE $PORT
+# RUN ls -nalp
+# RUN cd build && ls -nalp
+# Start production server
+# CMD pwd && ls -al && cat .env && node server.js
+# CMD node server.js
+# CMD pm2 start node --name "March 1st Backend" -- ace serve --watch
+# CMD ["/bin/bash","pm2 start node --name 'March 1st Backend' -- ace serve --watch"] 
+# node ace serve --watch
+# CMD npm run pm2:start
+# D:\AWS\March 1st\Passwordless\rp-backend
